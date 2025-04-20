@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/cart")
 @RequiredArgsConstructor
@@ -33,6 +35,12 @@ public class CartController {
         return deleted ? ResponseEntity.noContent().build()
                        : ResponseEntity.notFound().build();
 
+    }
+
+    @GetMapping
+    public ResponseEntity<List<CartItem>> getCart(
+            @RequestHeader("X-User-ID") String userdId){
+        return ResponseEntity.ok(cartService.getCart(userdId));
     }
 
 }
